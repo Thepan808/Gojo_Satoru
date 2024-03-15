@@ -6,7 +6,7 @@ from urllib import parse
 from pyrogram.types import InlineKeyboardButton as IKB
 from pyrogram.types import InlineKeyboardMarkup as IKM
 from pyrogram.types import Message
-# import yt_dlp
+import yt_dlp
 from pytube import YouTube
 from youtubesearchpython.__future__ import Video, VideosSearch
 
