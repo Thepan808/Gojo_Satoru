@@ -165,8 +165,8 @@ async def youtube_downloader(c:Gojo,m:Message,query:str,is_direct:bool,type_:str
     dicti = dicti[1]
     f_name = dicti["title"]
     views = dicti["views"]
-    uploader = dicti["channel"]
-    up_url = dicti["uploader"]
+    up_url = dicti["channel"]
+    uploader = dicti["uploader"]
     dura = dicti["duration"]
     thumb = dicti["thumbnail"]
     vid_dur = get_duration_in_sec(dicti["DURATION"])
@@ -182,12 +182,12 @@ async def youtube_downloader(c:Gojo,m:Message,query:str,is_direct:bool,type_:str
         thumb = await resize_file_to_sticker_size(thumb,320,320)
     await thumb_.delete()
     cap = f"""
-⤷ Name: `{f_name}`
-⤷ Duration: `{dura}`
-⤷ Views: `{views}`
-⤷ Published: `{published_on}`
+⤷ Nome: `{f_name}`
+⤷ Duração: `{dura}`
+⤷ Visualizações: `{views}`
+⤷ Publicado: `{published_on}`
 
-Downloaded by: @{c.me.username}
+Baixado por: @{c.me.username}
 """
     kb = IKM(
         [
@@ -195,7 +195,7 @@ Downloaded by: @{c.me.username}
                 IKB(f"✘ {uploader.capitalize()} ✘",url=f"{up_url}")
             ],
             [
-                IKB(f"✘ Youtube url ✘", url=f"{url}")
+                IKB(f"✘ URL do Youtube ✘", url=f"{url}")
             ]
         ]
     )
