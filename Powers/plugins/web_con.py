@@ -120,11 +120,11 @@ async def lyrics_for_song(c: Gojo, q: CallbackQuery):
         song = genius_lyrics.search_song(song)
         artist = song.artist
     if not song.lyrics:
-        await q.answer("‼️ No lyrics found ‼️",True)
+        await q.answer("‼️ Nenhuma letra encontrada ‼️",True)
         return
     header = f"{songe.capitalize()} by {artist}"
     if song.lyrics:
-        await q.answer("Fetching lyrics")
+        await q.answer("Buscar Letras")
         reply = song.lyrics.split("\n",1)[1]
     if len(reply) >= 4096:
         cap = f"{header}\n{reply[0:4080]}..."
@@ -136,17 +136,17 @@ async def lyrics_for_song(c: Gojo, q: CallbackQuery):
             art = ''
         new_kb = [
             [
-                IKB("Next",f"lyrics_next_{songe}{art}")
+                IKB("Próximo",f"lyrics_next_{songe}{art}")
             ]
             [
-                IKB("Close","f_close")
+                IKB("Fechar","f_close")
             ]
         ]
     else:
         cap = f"{header}\n{reply}"
         new_kb = [
             [
-                IKB("Close","f_close")
+                IKB("Fechar","f_close")
             ]
         ]
     await q.message.reply_to_message.reply_text(cap,reply_markup=new_kb)
@@ -160,7 +160,7 @@ async def lyrics_for_song_next(c: Gojo, q: CallbackQuery):
     todo = split[1]
     try:
         artist = split[3]
-        header = f"{song.capitalize()} by {artist}"
+        header = f"{song.capitalize()} por {artist}"
         art = '_'+artist
     except IndexError:
         artist = False
@@ -183,10 +183,10 @@ async def lyrics_for_song_next(c: Gojo, q: CallbackQuery):
     next_part = f"{header}\n{next_part}"
     new_kb = [
             [
-                IKB("Next",f"lyrics_prev_{song}{art}")
+                IKB("Próximo",f"lyrics_prev_{song}{art}")
             ]
             [
-                IKB("Close","f_close")
+                IKB("Fechar","f_close")
             ]
         ]
     await q.edit_message_text(next_part, reply_markup=new_kb)
@@ -195,18 +195,18 @@ async def lyrics_for_song_next(c: Gojo, q: CallbackQuery):
 @Gojo.on_message(command(["removebackground","removebg","rmbg"]))
 async def remove_background(c: Gojo, m: Message):
     if not is_rmbg:
-        await m.reply_text("Add rmbg api to use this command")
+        await m.reply_text("Adicionar rmbg api para usar este comando")
         return
     
     reply = m.reply_to_message
     if not reply:
-        await m.reply_text("Reply to image/sticker to remove it's background")
+        await m.reply_text("Responder à imagem/adesivo para remover o plano de fundo")
         return
     elif not (reply.photo or (reply.document and reply.document.mime_type.split("/")[0] == "image") or reply.sticker):
-        await m.reply_text("Reply to image/sticker to remove it's background")
+        await m.reply_text("Responder à imagem/adesivo para remover o plano de fundo")
         return
     elif reply.sticker and (reply.sticker.is_video or reply.sticker.is_animated):
-        await m.reply_text("Reply to normal sticker to remove it's background")
+        await m.reply_text("Responder ao adesivo normal para remover o plano de fundo")
         return
     XnX = await m.reply_text("⏳")
     URL = "https://api.remove.bg/v1.0/removebg"
@@ -252,7 +252,7 @@ async def song_down_up(c: Gojo, m: Message):
     try:
         splited = m.text.split(None,1)[1].strip()
     except IndexError:
-        await m.reply_text("**USAGE**\n /song [song name | link]")
+        await m.reply_text("**USO**\n /song [Nome da música | link]")
         return
     if splited.startswith("https://youtube.com"):
         is_direct = True
@@ -266,10 +266,10 @@ async def song_down_up(c: Gojo, m: Message):
         await XnX.delete()
         return
     except KeyError:
-        await XnX.edit_text(f"Failed to find any result")
+        await XnX.edit_text(f"Falha ao encontrar nenhum resultado")
         return
     except Exception as e:
-        await XnX.edit_text(f"Got an error\n{e}")
+        await XnX.edit_text(f"Tem um erro\n{e}")
         LOGGER.error(e)
         LOGGER.error(format_exc())
         return
@@ -279,7 +279,7 @@ async def video_down_up(c: Gojo, m: Message):
     try:
         splited = m.text.split(None,1)[1].strip()
     except IndexError:
-        await m.reply_text("**USAGE**\n /vsong [song name | link]")
+        await m.reply_text("**USO**\n /vsong [Nome do vídeo | link]")
         return
     if splited.startswith("https://youtube.com"):
         is_direct = True
@@ -293,10 +293,10 @@ async def video_down_up(c: Gojo, m: Message):
         await XnX.delete()
         return
     except KeyError:
-        await XnX.edit_text(f"Failed to find any result")
+        await XnX.edit_text(f"Falha ao encontrar nenhum resultado")
         return
     except Exception as e:
-        await XnX.edit_text(f"Got an error\n{e}")
+        await XnX.edit_text(f"Tem um erro\n{e}")
         LOGGER.error(e)
         LOGGER.error(format_exc())
         return
@@ -306,10 +306,10 @@ async def download_instareels(c: Gojo, m: Message):
     try:
         reel_ = m.command[1]
     except IndexError:
-        await m.reply_text("Give me an link to download it...")
+        await m.reply_text("Dê-me um link para baixá-lo...")
         return
     if not reel_.startswith("https://www.instagram.com/reel/"):
-        await m.reply_text("In order to obtain the requested reel, a valid link is necessary. Kindly provide me with the required link.")
+        await m.reply_text("Para obter o reel solicitada, é necessário um link válido. Por favor, forneça-me o link necessário.")
         return
     OwO = reel_.split(".",1)
     Reel_ = ".dd".join(OwO)
@@ -325,17 +325,17 @@ async def download_instareels(c: Gojo, m: Message):
                 await m.reply_document(Reel_)
                 return
             except Exception:
-                await m.reply_text("I am unable to reach to this reel.")
+                await m.reply_text("Não consigo baixar a este reel.")
                 return
 
 __PLUGIN__ = "web support"
 
 __HELP__ = """
-**Available commands**
-• /rmbg (/removebg, /removebackground) : Reply to image file or sticker of which you want to remove background
-• /song (/yta) <songname or youtube link> : Download audio only from provided youtube url
-• /vsong (/ytv) <songname or youtube link> : Download video from provided youtube url
-• /ig (/instagram , /insta) <reel's url> : Download reel from it's url
+**Comandos disponíveis**
+• /rmbg (/removebg, /removebackground) : Responder ao arquivo de imagem ou adesivo do qual você deseja remover o plano de fundo
+• /song (/yta) <Nome ou link do youtube> : Baixe o áudio somente da URL do youtube fornecida
+• /vsong (/ytv) <nome ou link do youtube> : Baixar vídeo da URL do youtube fornecida
+• /ig (/instagram , /insta) <URL do Reel> : Baixar bobina de sua url
 
-**Bot will not download any song or video having duration greater than 10 minutes (to reduce the load on bot's server)**
+**O Bot não baixará nenhuma música ou vídeo com duração superior a 10 minutos (para reduzir a carga no servidor do bot)**
 """
