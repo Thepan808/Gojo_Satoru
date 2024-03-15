@@ -39,29 +39,29 @@ async def gen_start_kb(q: Message or CallbackQuery):
         [
             [
                 (
-                    "➕ Add me to a chat!",
+                    "➕ Adicionar-me a um chat!",
                     f"https://t.me/{Config.BOT_USERNAME}?startgroup=new",
                     "url",
                 ),
                 (
-                    "Support 👥",
+                    "Apoio 👥",
                     f"https://t.me/{SUPPORT_GROUP}",
                     "url",
                 ),
             ],
             [
                 (
-                    "📚 Commands & Help", "commands"
+                    "📚 Comandos & Ajuda", "commands"
                 ),
                 (
-                    "👾 Bot info",
+                    "👾 Informações",
                     "bot_curr_info"
                 )
             ],
             [
                 (
-                    "🗃️ Source Code",
-                    "https://github.com/Gojo-Bots/Gojo_Satoru",
+                    "🗃️ Restante",
+                    "https://t.me/songs_oficial",
                     "url",
                 ),
                 (
@@ -72,12 +72,12 @@ async def gen_start_kb(q: Message or CallbackQuery):
             ],
             [
                 (
-                    "Essential",
-                    "https://t.me/+PcVYvdzNt4E1YjM1",
+                    "Essencial",
+                    "https://t.me/Plist_by",
                     "url",
                 ),
                 (
-                    "Powered by",
+                    "power by",
                     f"https://{Config.SUPPORT_CHANNEL}.t.me",
                     "url",
                 ),
@@ -94,14 +94,14 @@ async def get_private_note(c: Gojo, m: Message, help_option: str):
 
         all_notes = notes_db.get_all_notes(chat_id)
         chat_title = Chats.get_chat_info(chat_id)["chat_name"]
-        rply = f"Notes in {chat_title}:\n\n"
+        rply = f"Notas em {chat_title}:\n\n"
         note_list = [
             f"- [{note[0]}](https://t.me/{Config.BOT_USERNAME}?start=note_{chat_id}_{note[1]})"
             for note in all_notes
         ]
-        rply = f"Available notes in {chat_title}\n"
+        rply = f"Notas disponíveis em {chat_title}\n"
         rply += "\n".join(note_list)
-        rply += "\n\nYou can retrieve these notes by tapping on the notename."
+        rply += "\n\nVocê pode recuperar essas anotações tocando no nome da nota."
         await m.reply_text(rply, disable_web_page_preview=True, quote=True)
         return
 
@@ -111,13 +111,13 @@ async def get_private_note(c: Gojo, m: Message, help_option: str):
     note_hash = help_option.split("_")[2]
     getnotes = notes_db.get_note_by_hash(note_hash)
     if not getnotes:
-        await m.reply_text("Note does not exist", quote=True)
+        await m.reply_text("Observação não existe", quote=True)
         return
 
     msgtype = getnotes["msgtype"]
     if not msgtype:
         await m.reply_text(
-            "<b>Error:</b> Cannot find a type for this note!!",
+            "<b>Error:</b> Não é possível encontrar um tipo para esta nota!!",
             quote=True,
         )
         return
@@ -147,7 +147,7 @@ async def get_private_note(c: Gojo, m: Message, help_option: str):
         button = await build_keyboard(button)
         button = ikb(button) if button else None
         if not teks:
-            teks = "Here is your note"
+            teks = "Aqui está a sua nota"
         if button:
             try:
                 await m.reply_text(
@@ -159,7 +159,7 @@ async def get_private_note(c: Gojo, m: Message, help_option: str):
                 return
             except RPCError as ef:
                 await m.reply_text(
-                    "An error has occured! Cannot parse note.",
+                    "Ocorreu um erro! Não é possível analisar a anotação.",
                     quote=True,
                 )
                 LOGGER.error(ef)
@@ -209,7 +209,7 @@ async def get_private_note(c: Gojo, m: Message, help_option: str):
                 caption=teks,
             )
     LOGGER.info(
-        f"{m.from_user.id} fetched privatenote {note_hash} (type - {getnotes}) in {m.chat.id}",
+        f"{m.from_user.id} PrivateNote Buscado {note_hash} (type - {getnotes}) in {m.chat.id}",
     )
     return
 
@@ -220,7 +220,7 @@ async def get_private_rules(_, m: Message, help_option: str):
     chat_title = Chats.get_chat_info(chat_id)["chat_name"]
     if not rules:
         await m.reply_text(
-            "The Admins of that group have not setup any rules, that dosen't mean you break the decorum of the chat!",
+            "Os administradores desse grupo não configuraram nenhuma regra, isso não significa que você quebre o decoro do bate-papo!",
             quote=True,
         )
         return ""
@@ -229,7 +229,7 @@ async def get_private_rules(_, m: Message, help_option: str):
     button = ikb(button) if button else None
     textt = teks
     await m.reply_text(
-        f"""The rules for <b>{escape(chat_title)} are</b>:\n
+        f"""As regras para <b>{escape(chat_title)} are</b>:\n
 {textt}
 """,
         quote=True,
@@ -264,7 +264,7 @@ async def get_help_msg(m: Message or CallbackQuery, help_option: str):
         help_kb = ikb(ou, True, "commands")
         help_msg = f"**{(help_option_value)}:**"
         LOGGER.info(
-            f"{m.from_user.id} fetched help for {help_option} in {m.chat.id}",
+            f"{m.from_user.id} buscou ajuda para {help_option} em {m.chat.id}",
         )
     else:
         if isinstance(m,CallbackQuery):
@@ -272,11 +272,11 @@ async def get_help_msg(m: Message or CallbackQuery, help_option: str):
         else:
             mes = m
         help_msg = f"""
-Hey **[{mes.from_user.first_name}](http://t.me/{mes.from_user.username})**!I am Gojo✨.
-I'm here to help you manage your groups!
-Commands available:
-× /start: Start the bot
-× /help: Give's you this message."""
+Ei **[{mes.from_user.first_name}](http://t.me/{mes.from_user.username})**!Eu sou Savage ✨.
+Estou aqui para ajudá-lo a gerenciar seus grupos!
+Comandos disponíveis:
+× /start: Iniciar o bot
+× /help: Dê-lhe esta mensagem."""
         ou = await gen_cmds_kb(m)
         help_kb = ikb(ou, True)
 
