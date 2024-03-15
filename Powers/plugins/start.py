@@ -26,13 +26,13 @@ from Powers.vars import Config
 )
 async def donate(_, m: Message):
     cpt = """
-Hey Thanks for your thought of donating me!
-When you donate, all the fund goes towards my development which makes on fast and responsive.
-Your donation might also me get me a new feature or two, which I wasn't able to get due to server limitations.
+Hey Obrigado por seu pensamento de me doar!
+Quando você doa, todo o fundo vai para o meu desenvolvimento, que faz com que seja rápido e responsivo.
+Sua doação também pode me dar um novo recurso ou dois, que eu não consegui devido a limitações do servidor.
 
-All the fund would be put into my services such as database, storage and hosting!
+Todo o fundo seria colocado em meus serviços, como banco de dados, armazenamento e hospedagem!
 
-You can donate by contacting my owner: [Captain Ezio](http://t.me/iamgojoof6eyes)
+Você pode doar através desse link: [Link para doação](https://www.donationalerts.com/r/the_panda_official)
      """
 
     LOGGER.info(f"{m.from_user.id} fetched donation text in {m.chat.id}")
@@ -46,18 +46,18 @@ async def close_admin_callback(_, q: CallbackQuery):
     user_status = (await q.message.chat.get_member(user_id)).status
     if user_status not in {CMS.OWNER, CMS.ADMINISTRATOR}:
         await q.answer(
-            "You're not even an admin, don't try this explosive shit!",
+            "Você nem é um administrador, não tente essa merda!",
             show_alert=True,
         )
         return
     if user_status != CMS.OWNER:
         await q.answer(
-            "You're just an admin, not owner\nStay in your limits!",
+            "Você é apenas um administrador, não proprietário\nFique dentro dos seus limites!",
             show_alert=True,
         )
         return
-    await q.message.edit_text("Closed!")
-    await q.answer("Closed menu!", show_alert=True)
+    await q.message.edit_text("Fechado!")
+    await q.answer("Menu fechado!", show_alert=True)
     return
 
 
@@ -107,11 +107,11 @@ async def start(c: Gojo, m: Message):
                 
         try:
             cpt = f"""
-Hey [{m.from_user.first_name}](http://t.me/{m.from_user.username})! I am Gojo ✨.
-I'm here to help you manage your group(s)!
-Hit /help to find out more about how to use me in my full potential!
+Hey [{m.from_user.first_name}](http://t.me/{m.from_user.username})! Eu sou Savage ✨.
+Estou aqui para ajudá-lo a gerenciar seu grupo(s)!
+Pressione /help para saber mais sobre como me usar em todo o meu potencial!
 
-Join my [News Channel](https://t.me/gojo_bots_network) to get information on all the latest updates."""
+Junte-se ao meu [Canal](https://t.me/botssaved) para obter informações sobre todas as atualizações mais recentes."""
 
             await m.reply_photo(
                 photo=str(choice(StartPic)),
@@ -120,13 +120,13 @@ Join my [News Channel](https://t.me/gojo_bots_network) to get information on all
                 quote=True,
             )
         except UserIsBlocked:
-            LOGGER.warning(f"Bot blocked by {m.from_user.id}")
+            LOGGER.warning(f"Bot bloqueado por {m.from_user.id}")
     else:
       kb = InlineKeyboardMarkup(
         [
           [
             InlineKeyboardButton(
-              "Connect me to pm", 
+              "Conecte-me ao dm", 
               url=f"https://{Config.BOT_USERNAME}.t.me/",
             ),
           ],
@@ -135,7 +135,7 @@ Join my [News Channel](https://t.me/gojo_bots_network) to get information on all
         
       await m.reply_photo(
         photo=str(choice(StartPic)),
-        caption="I'm alive :3",
+        caption="Estou vivo :3",
         reply_markup=kb,
         quote=True,
       )
@@ -146,11 +146,11 @@ Join my [News Channel](https://t.me/gojo_bots_network) to get information on all
 async def start_back(_, q: CallbackQuery):
     try:
         cpt = f"""
-Hey [{q.from_user.first_name}](http://t.me/{q.from_user.username})! I am Gojo ✨.
-I'm here to help you manage your group(s)!
-Hit /help to find out more about how to use me in my full potential!
+Ei [{q.from_user.first_name}](http://t.me/{q.from_user.username})! Eu sou Savage ✨.
+Estou aqui para ajudá-lo a gerenciar seu grupo(s)!
+Pressione /help para saber mais sobre como me usar em todo o meu potencial!
 
-Join my [News Channel](http://t.me/gojo_bots_network) to get information on all the latest updates."""
+Junte-se ao meu [Canal](http://t.me/botssaved) para obter informações sobre todas as atualizações mais recentes."""
 
         await q.edit_message_caption(
             caption=cpt,
@@ -168,13 +168,13 @@ async def commands_menu(_, q: CallbackQuery):
     keyboard = ikb(ou, True)
     try:
         cpt = f"""
-Hey **[{q.from_user.first_name}](http://t.me/{q.from_user.username})**! I am Gojo✨.
-I'm here to help you manage your group(s)!
-Commands available:
-× /start: Start the bot
-× /help: Give's you this message.
+Ei **[{q.from_user.first_name}](http://t.me/{q.from_user.username})**! Eu sou Savage✨.
+Estou aqui para ajudá-lo a gerenciar seu grupo(s)!
+Comandos disponíveis:
+× /start: Iniciar o bot
+× /help: Dê-lhe esta mensagem.
 
-You can use `$` and `!` in placec of `/` as your prefix handler
+Você pode usar `$` e `!` no lugar de `/` como seu comando de prefixo
 """
 
         await q.edit_message_caption(
@@ -223,7 +223,7 @@ async def help_menu(_, m: Message):
 
             await m.reply_photo(
                 photo=str(choice(StartPic)),
-                caption=f"Press the button below to get help for <i>{help_option}</i>",
+                caption=f"Pressione o botão abaixo para obter ajuda para <i>{help_option}</i>",
                 reply_markup=InlineKeyboardMarkup(
                   [
                     [
@@ -241,11 +241,11 @@ async def help_menu(_, m: Message):
             ou = await gen_cmds_kb(m)
             keyboard = ikb(ou, True)
             msg = f"""
-Hey **[{m.from_user.first_name}](http://t.me/{m.from_user.username})**!I am Gojo✨.
-I'm here to help you manage your group(s)!
-Commands available:
-× /start: Start the bot
-× /help: Give's you this message."""
+Ei **[{m.from_user.first_name}](http://t.me/{m.from_user.username})**!Eu sou Savage✨.
+Estou aqui para ajudá-lo a gerenciar seu grupo(s)!
+Comandos disponíveis:
+× /start: Iniciar o bot
+× /help: Dê-lhe esta mensagem."""
         else:
             keyboard = InlineKeyboardMarkup(
               [
@@ -257,7 +257,7 @@ Commands available:
                 ],
               ],
             )
-            msg = "Contact me in PM to get the list of possible commands."
+            msg = "Entre em contato comigo na Dm para obter a lista de comandos possíveis."
 
         await m.reply_photo(
             photo=str(choice(StartPic)),
@@ -276,10 +276,10 @@ async def give_curr_info(c: Gojo, q: CallbackQuery):
     await x.delete()
     txt = f"""
 🏓 Ping : {delta_ping * 1000:.3f} ms
-📈 Uptime : {up}
-🤖 Bot's version: {VERSION}
-🐍 Python's version: {PYTHON_VERSION}
-🔥 Pyrogram's version : {PYROGRAM_VERSION}
+📈 Ativo : {up}
+🤖 Versão do Bot: {VERSION}
+🐍 Versão do Python: {PYTHON_VERSION}
+🔥 Versão do pyrogram: {PYROGRAM_VERSION}
     """
     await q.answer(txt, show_alert=True)
     return
