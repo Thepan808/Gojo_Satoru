@@ -164,6 +164,7 @@ async def youtube_downloader(c:Gojo,m:Message,query:str,is_direct:bool,type_:str
     yt = YouTube(query)
     dicti = dicti[1]
     f_name = dicti["title"]
+    performer=(yt_data["channel"])
     views = dicti["views"]
     up_url = dicti["channel"]
     uploader = dicti["uploader"]
